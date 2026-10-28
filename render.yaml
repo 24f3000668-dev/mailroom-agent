@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --workers 1 --threads 16 --timeout 120 --bind 0.0.0.0:$PORT mailroom_agent:app
+    startCommand: gunicorn --workers 1 --threads 16 --timeout 120 --bind 0.0.0.0:$PORT mailroom_agent_postgres:app
     envVars:
       - key: LLM_BASE_URL
         value: https://generativelanguage.googleapis.com/v1beta/openai
@@ -12,7 +12,7 @@ services:
         sync: false
       - key: LLM_API_KEY
         sync: false
-      - key: DB_PATH
-        value: /tmp/mailroom.db
+      - key: DATABASE_URL
+        sync: false
       - key: MAIL_PATH
         value: /v1/mailroom/actions
